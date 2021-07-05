@@ -19,6 +19,10 @@ export default class Game {
         this.cells = new Array(size * size).fill().map(() => new Cell());
     }
 
+    get isSinglePlayer() {
+        return this.mode === Modes.OnePlayer;
+    }
+
     makeMove(i) {
         if (this.status === Statuses.Active && !this.cells[i].value) {
             this.cells[i].value = this.currentMove;

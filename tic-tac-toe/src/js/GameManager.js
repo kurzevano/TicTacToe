@@ -6,11 +6,10 @@ export default class GameManager {
         this.isStarted = false;
         this.isModeSelected = false;
         this.status = "Test";
-
-        this.startGame();
     }
 
     startGame() {
         this.currentGame = new Game(3);
+        this.isStarted = true;
     }
 }
