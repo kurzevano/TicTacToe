@@ -1,16 +1,24 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <HelloWorld v-bind:gm="gm"/>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
+import GameManager from './js/GameManager'
 
 export default {
   name: 'App',
   components: {
     HelloWorld
-  }
+  },
+  data() {
+    return {
+      gm:  new GameManager()
+    }
+    },
+      mounted(){
+    },
 }
 </script>
 
