@@ -1,4 +1,5 @@
 import Cell from "./Cell";
+import MathHelper from "./MathHelper";
 const Statuses = { Active: 'active', Pause: 'pause', Fail: 'fail', Win: 'win', Draw: 'draw' };
 
 export default class Game {
@@ -6,14 +7,18 @@ export default class Game {
         this.playerCount = gameParameters.playerCount;
         this.gameSymbols = gameParameters.gameSymbols;
         this.status = Statuses.Active;
+
+        // Кто делает текущий ход (кресик или нолик)
         this.currentMove = this.getX();
+
+        // Символ пользователя (крестик или нолик)
+        this.initialMove = this.currentMove;
+
         this.isOver = false;
         this.movesCount = 0;
         let size = Number(gameParameters.selectedSize);
         // Создаём двумерный массив, заполняем каждый элемент новым значением Cell
         this.cells = new Array(size).fill().map(() => (new Array(size).fill().map(() => new Cell())));
-        this.cells[0][0].id = 1;
-        this.cells[0][1].id = 2;
     }
 
     // Получает значение символа крестика или нолика
@@ -39,7 +44,7 @@ export default class Game {
     makeMove(cell) {
         if (this.status === Statuses.Active && !cell.value) {
             console.log("CM: " + this.currentMove);
-            cell.value = this.currentMove;
+            cell.setValue(this.currentMove);
             this.movesCount++;
             this.checkForWinner();
             this.changePlayer();
@@ -51,9 +56,30 @@ export default class Game {
     }
 
     checkForWinner() {
+        let result = MathHelper.calculateWinner(this.cells);
+        if (result === 0) {
+            return false;
+        } else {
+            if (result === 1) {
+                if (this.initialMove === "X") {
+                    this.status = Statuses.Win;
+                } else {
+                    this.status = Statuses.Fail;
+                }
+            } else if (result === -1) {
+                if (this.initialMove === "O") {
+                    this.status = Statuses.Win;
+                } else {
+                    this.status = Statuses.Fail;
+                }
+            }
+        }
+
         if (this.movesCount == Math.pow(this.cells.length, 2)) {
             this.status = Statuses.Draw;
+            return false;
         }
+
         return false;
     }
 

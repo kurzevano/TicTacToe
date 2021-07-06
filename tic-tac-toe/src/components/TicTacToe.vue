@@ -42,11 +42,11 @@
         <nav>
           <button>Пауза</button>
           <button>Выйти из игры</button>
+        </nav>
           <div>Ходит: {{gm.currentGame.currentMove}}</div>
-          <div>Таймер: _____</div>
-          {{gm.currentGame}}
+          <div>{{gm.currentGame.status}}</div>
 
-           <table id='board'>
+           <table class='board'>
           <tr v-for="row in gm.currentGame.cells" :key="row">
             <td v-for="cell in row" :key="cell.id" @click="makeMove(cell)">
               <div class='square'
@@ -56,8 +56,6 @@
             </td>
           </tr>
         </table>
-
-        </nav>
       </div>
 
 </template>

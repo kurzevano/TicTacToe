@@ -1,20 +1,19 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld 
+  <TicTacToe 
     v-bind:gm="gm"
     v-bind:gp="gp"
   />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import TicTacToe from './components/TicTacToe.vue'
 import GameManager from './js/GameManager'
 import GameParameters from './js/GameParameters'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    TicTacToe
   },
   data() {
     return {
