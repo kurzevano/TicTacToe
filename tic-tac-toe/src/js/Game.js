@@ -58,7 +58,10 @@ export default class Game {
     checkForWinner() {
         let result = MathHelper.calculateWinner(this.cells);
         if (result === 0) {
-            return false;
+            if (this.movesCount == Math.pow(this.cells.length, 2)) {
+                this.status = Statuses.Draw;
+                return false;
+            }
         } else {
             if (result === 1) {
                 if (this.initialMove === "X") {
@@ -66,18 +69,12 @@ export default class Game {
                 } else {
                     this.status = Statuses.Fail;
                 }
-            } else if (result === -1) {
+            } else if (result === -1)
                 if (this.initialMove === "O") {
                     this.status = Statuses.Win;
                 } else {
                     this.status = Statuses.Fail;
                 }
-            }
-        }
-
-        if (this.movesCount == Math.pow(this.cells.length, 2)) {
-            this.status = Statuses.Draw;
-            return false;
         }
 
         return false;
