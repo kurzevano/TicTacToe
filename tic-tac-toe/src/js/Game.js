@@ -1,14 +1,11 @@
 import Cell from "./Cell";
-import Enum from "./Enum";
-
-const Modes = Enum({ OnePlayer: 'one', TwoPlayer: 'two' });
-//
-const Statuses = Enum({ Active: 'active', Pause: 'pause', Fail: 'fail', Win: 'win', Draw: 'draw' });
+const Statuses = { Active: 'active', Pause: 'pause', Fail: 'fail', Win: 'win', Draw: 'draw' };
 
 export default class Game {
     constructor(gameParameters) {
         console.log("PARAM: " + gameParameters);
         this.playerCount = gameParameters.playerCount;
+        console.log("Active: " + Statuses.Active.toString());
         this.status = Statuses.Active;
         console.log("gameParameters.gameSymbols: " + gameParameters.gameSymbols);
         this.currentMove = gameParameters.gameSymbols[0];
@@ -18,7 +15,7 @@ export default class Game {
     }
 
     get isSinglePlayer() {
-        return this.mode === Modes.OnePlayer;
+        return this.playerCount === 1;
     }
 
     makeMove(i) {

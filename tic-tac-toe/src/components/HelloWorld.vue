@@ -3,6 +3,9 @@
     <h1>{{ gm.status }}</h1>
     <h1>{{gm}}</h1>
 
+    <h1>Parameters</h1>
+    <h1>{{gp}}</h1>
+
           <div id='divSelectSize' v-if='!gm.isStarted && !gp.isFieldSizeSelected'>
         <div class='titleBlock'>
           <h1>Размер поля</h1>
@@ -41,6 +44,7 @@
                 <div id='welcome2' v-if='gm.isStarted'>
         <div class='titleBlock'>
           <h1>Started</h1>
+          {{gm.currentGame}}
         </div>
       </div>
 
@@ -58,7 +62,8 @@ export default {
             required:true
         }, 
         gp:{
-          type:GameParameters
+          type:GameParameters,
+          required:true
         }
     },
       methods:{
@@ -72,7 +77,7 @@ export default {
       console.log(this.gm.isStarted + "---" + this.gp.isFieldSizeSelected);
     },
     startOnePlayerGame(){
-      console.log(`StartingOne...`+this.gm[0]);
+      console.log(`StartingOne...`+this.gm);
       this.gp.setPlayerCount(1);
       this.startGame(this.gp);
     },

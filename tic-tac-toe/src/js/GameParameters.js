@@ -1,5 +1,4 @@
-import Enum from "./Enum";
-const GameSymbols = Enum({ X: 'X', O: 'O' });
+const GameSymbols = { X: 'X', O: 'O' };
 export default class GameParameters {
 
     constructor() {
@@ -9,6 +8,7 @@ export default class GameParameters {
 
     setGameSymbols(symbols) {
         this.gameSymbols = symbols;
+        console.log("GS: " + symbols[0]);
     }
 
     setSelectedSize(size) {
@@ -17,8 +17,8 @@ export default class GameParameters {
     }
 
     setPlayerCount(playerCount) {
-        this.isPlayerCountSelected = playerCount;
         this.playerCount = playerCount;
+        this.isPlayerCountSelected = true;
     }
 
     get getFieldSizes() {
