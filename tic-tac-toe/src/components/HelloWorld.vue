@@ -1,15 +1,10 @@
 <template>
+
+  <!-- Настройки размера поля -->
   <div class="hello">
-    <h1>{{ gm.status }}</h1>
-    <h1>{{gm}}</h1>
-
-    <h1>Parameters</h1>
-    <h1>{{gp}}</h1>
-
-          <div id='divSelectSize' v-if='!gm.isStarted && !gp.isFieldSizeSelected'>
-        <div class='titleBlock'>
-          <h1>Размер поля</h1>
-
+    <div id='divSelectSize' v-if='!gm.isStarted && !gp.isFieldSizeSelected'>
+      <div class='titleBlock'>
+        <h1>Размер поля</h1>
           <div v-for="size of gm.getFieldSizes"
           :key="size">
             {{size}} x {{size}}
@@ -28,6 +23,7 @@
         </div>
       </div>
 
+  <!-- Выбор количества игроков -->
       <div id='divSelectPlayers' v-if='!gm.isStarted && gp.isFieldSizeSelected'>
           <button 
             @click="startOnePlayerGame">
@@ -41,11 +37,27 @@
         </div>
       </div>
 
-                <div id='welcome2' v-if='gm.isStarted'>
-        <div class='titleBlock'>
-          <h1>Started</h1>
+<!-- Процесс игры -->
+      <div id='gameDiv' v-if='gm.isStarted'>
+        <nav>
+          <button>Пауза</button>
+          <button>Выйти из игры</button>
+          <div>Ходит: {{gm.currentGame.currentMove}}</div>
+          <div>Таймер: _____</div>
           {{gm.currentGame}}
-        </div>
+
+           <table id='board'>
+          <tr v-for="row in gm.currentGame.cells" :key="row">
+            <td v-for="cell in row" :key="cell.id" @click="makeMove(cell)">
+              <div class='square'
+                    >
+                {{cell.value}}
+              </div>
+            </td>
+          </tr>
+        </table>
+
+        </nav>
       </div>
 
 </template>
@@ -67,8 +79,8 @@ export default {
         }
     },
       methods:{
-    startGame(gp){
-       console.log(`Starting...`+gp);
+        startGame(gp){
+          console.log(`Starting...`+gp);
     this.gm.startGame(gp);
     },
     selectFieldSize(){
@@ -85,6 +97,12 @@ export default {
       this.gp.setPlayerCount(2);
       this.startGame(this.gp);
     },
+    makeMove(cell){
+      console.log("cell click "+Object.entries(cell)[0]);
+      this.gm.currentGame.makeMove(cell);
+    },
   }
 }
 </script>
+
+<style src="../css/main.css"></style>

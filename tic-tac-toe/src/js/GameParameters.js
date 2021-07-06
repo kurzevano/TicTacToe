@@ -1,14 +1,11 @@
-const GameSymbols = { X: 'X', O: 'O' };
 export default class GameParameters {
-
     constructor() {
         this.isFieldSizeSelected = false;
-        this.setGameSymbols(GameSymbols);
+        this.setGameSymbols({ X: "X", O: "O" });
     }
 
     setGameSymbols(symbols) {
         this.gameSymbols = symbols;
-        console.log("GS: " + symbols[0]);
     }
 
     setSelectedSize(size) {
