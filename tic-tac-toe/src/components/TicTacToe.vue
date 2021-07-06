@@ -40,8 +40,8 @@
 <!-- Процесс игры -->
       <div id='gameDiv' v-if='gm.isStarted'>
         <nav>
-          <button>Пауза</button>
-          <button>Выйти из игры</button>
+          <button disabled>Пауза</button>
+          <button disabled>Выйти из игры</button>
         </nav>
           <div>Ходит: {{gm.currentGame.currentMove}}</div>
           <div>{{gm.currentGame.status}}</div>
