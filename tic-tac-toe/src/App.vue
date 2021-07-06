@@ -1,11 +1,15 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld v-bind:gm="gm"/>
+  <HelloWorld 
+    v-bind:gm="gm"
+    v-bind:gp="gp"
+  />
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
 import GameManager from './js/GameManager'
+import GameParameters from './js/GameParameters'
 
 export default {
   name: 'App',
@@ -14,7 +18,8 @@ export default {
   },
   data() {
     return {
-      gm:  new GameManager()
+      gm:  new GameManager(),
+      gp: new GameParameters()
     }
     },
       mounted(){

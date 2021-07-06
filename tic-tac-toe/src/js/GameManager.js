@@ -4,7 +4,8 @@ export default class GameManager {
     constructor() {
         this.currentGame = null;
         this.isStarted = false;
-        this.isModeSelected = false;
+        this.isFieldSizeSelected = false;
+        this.isPlayerNumSelected = false;
         this.status = "Test";
     }
 

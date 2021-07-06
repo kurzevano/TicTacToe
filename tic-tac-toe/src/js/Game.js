@@ -1,22 +1,20 @@
 import Cell from "./Cell";
-//import Modes from "./GlobalObjects";
-//import Statuses from "./GlobalObjects";
-//import GameSymbols from "./GlobalObjects";
-
 import Enum from "./Enum";
 
-export const Modes = Enum({ OnePlayer: 'one', TwoPlayer: 'two' });
-const GameSymbols = Enum({ X: 'X', O: 'O' });
+const Modes = Enum({ OnePlayer: 'one', TwoPlayer: 'two' });
+//
 const Statuses = Enum({ Active: 'active', Pause: 'pause', Fail: 'fail', Win: 'win', Draw: 'draw' });
 
 export default class Game {
-    constructor(size) {
-        this.mode = Modes.OnePlayer;
+    constructor(gameParameters) {
+        console.log("PARAM: " + gameParameters);
+        this.playerCount = gameParameters.playerCount;
         this.status = Statuses.Active;
-        this.currentMove = GameSymbols.X;
+        console.log("gameParameters.gameSymbols: " + gameParameters.gameSymbols);
+        this.currentMove = gameParameters.gameSymbols[0];
         this.isOver = false;
         this.movesCount = 0;
-        this.cells = new Array(size * size).fill().map(() => new Cell());
+        this.cells = new Array(Math.pow(gameParameters.selectedSize, 2)).fill().map(() => new Cell());
     }
 
     get isSinglePlayer() {
@@ -33,11 +31,11 @@ export default class Game {
     }
 
     changePlayer() {
-        this.currentMove === GameSymbols.X ? (this.currentMove = GameSymbols.O) : (this.currentMove = GameSymbols.X);
+        //this.currentMove == GameSymbols.X ? (this.currentMove = GameSymbols.O) : (this.currentMove = GameSymbols.X);
     }
 
     checkForWinner() {
-        if (this.movesCount === this.cells.length) {
+        if (this.movesCount == this.cells.length) {
             this.status = Statuses.Draw;
         }
         return false;
