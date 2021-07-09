@@ -6,6 +6,14 @@ export default class Game {
     constructor(gameParameters) {
         this.playerCount = gameParameters.playerCount;
         this.gameSymbols = gameParameters.gameSymbols;
+        let size = Number(gameParameters.selectedSize);
+        // Создаём двумерный массив, заполняем каждый элемент новым значением Cell
+        this.cells = new Array(size).fill().map(() => (new Array(size).fill().map(() => new Cell())));
+
+        this.initialize();
+    }
+
+    initialize() {
         this.status = Statuses.Active;
 
         // Кто делает текущий ход (кресик или нолик)
@@ -16,9 +24,7 @@ export default class Game {
 
         this.isOver = false;
         this.movesCount = 0;
-        let size = Number(gameParameters.selectedSize);
-        // Создаём двумерный массив, заполняем каждый элемент новым значением Cell
-        this.cells = new Array(size).fill().map(() => (new Array(size).fill().map(() => new Cell())));
+        this.cells.forEach(row => { row.forEach(cell => { cell.initialize() }); });
     }
 
     // Получает значение символа крестика или нолика
@@ -50,9 +56,14 @@ export default class Game {
 
             if (this.status === Statuses.Win) {
                 cell.setWin();
+                this.isOver = true;
             }
             if (this.status === Statuses.Fail) {
                 cell.setFail();
+                this.isOver = true;
+            }
+            if (this.status === Statuses.Draw) {
+                this.isOver = true;
             }
 
             this.changePlayer();
@@ -86,5 +97,9 @@ export default class Game {
         }
 
         return false;
+    }
+
+    restartGame() {
+        this.initialize();
     }
 }

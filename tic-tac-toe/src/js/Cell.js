@@ -1,5 +1,9 @@
 export default class Cell {
     constructor() {
+        this.initialize();
+    }
+
+    initialize() {
         this.value = null;
         this.isWin = false;
         this.isFail = false;

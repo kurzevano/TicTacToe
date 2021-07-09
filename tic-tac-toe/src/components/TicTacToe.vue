@@ -1,15 +1,11 @@
 <template>
 
   <!-- Настройки размера поля -->
-  <div class="hello">
+  <div class="center-div hello">
     <div id='divSelectSize' v-if='!gm.isStarted && !gp.isFieldSizeSelected'>
-      <div class='titleBlock'>
+      <div class='titleBlock stretchHorDiv'>
         <h1>Размер поля</h1>
-          <div v-for="size of gm.getFieldSizes"
-          :key="size">
-            {{size}} x {{size}}
-          </div>
-
+        <div class="stretcVertDiv">
           <select id="sizeSelect" class="size-select">
             <option v-for="size in gp.getFieldSizes" :key="size" :value="size" >
               {{size}} x {{size}}
@@ -21,10 +17,11 @@
             Play
           </button>
         </div>
+        </div>
       </div>
 
   <!-- Выбор количества игроков -->
-      <div id='divSelectPlayers' v-if='!gm.isStarted && gp.isFieldSizeSelected'>
+      <div class='center-div divSelectPlayers' v-if='!gm.isStarted && gp.isFieldSizeSelected'>
           <button 
             @click="startOnePlayerGame">
             1 игрок
@@ -38,7 +35,7 @@
       </div>
 
 <!-- Процесс игры -->
-      <div id='gameDiv' v-if='gm.isStarted'>
+      <div center-div class='center-div gameDiv' v-if='gm.isStarted'>
         <nav>
           <button disabled>Пауза</button>
           <button disabled>Выйти из игры</button>
@@ -60,13 +57,22 @@
         </table>
       </div>
 
+      <!-- Окно окончания игры   -->
+      <div class='center-div gameOverDiv' v-if='gm.isStarted && gm.currentGame.isOver'>
+        <h1>Игра окончена. Играть ещё?</h1>
+        <div>
+        <button @click="goToStart">Нет, спасибо</button>
+        <button @click="restartGame">Да, начать новую игру</button>
+        </div>
+      </div>
+
 </template>
 
 <script>
 import GameManager from '../js/GameManager'
 import GameParameters from '../js/GameParameters'
 export default {
-  name: 'HelloWorld',
+  name: 'TicTacToe',
    props:
     {
         gm:{
@@ -81,12 +87,18 @@ export default {
       methods:{
         startGame(gp){
           this.gm.startGame(gp);
-            },
-      
-      selectFieldSize(){
-      let value = document.getElementById("sizeSelect").value;
-      this.gp.setSelectedSize(value);
-    },
+        },
+        goToStart(gp){
+          this.gm.setNull(gp);
+          this.gp.setNull();
+        },
+        restartGame(gp){
+          this.gm.restartGame(gp);
+        },
+        selectFieldSize(){
+          let value = document.getElementById("sizeSelect").value;
+          this.gp.setSelectedSize(value);
+        },
     startOnePlayerGame(){
       this.gp.setPlayerCount(1);
       this.startGame(this.gp);

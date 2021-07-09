@@ -1,7 +1,12 @@
 export default class GameParameters {
     constructor() {
-        this.isFieldSizeSelected = false;
+        this.setNull();
         this.setGameSymbols({ X: "X", O: "O" });
+    }
+
+    setNull() {
+        this.isFieldSizeSelected = false;
+        this.isPlayerCountSelected = false;
     }
 
     setGameSymbols(symbols) {
