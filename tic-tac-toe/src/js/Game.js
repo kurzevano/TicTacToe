@@ -56,21 +56,21 @@ export default class Game {
     }
 
     checkForWinner() {
-        let result = MathHelper.calculateWinner(this.cells);
-        if (result === 0) {
+        let result = MathHelper.calculateWinner(this.cells, 3);
+        if (result === null) {
             if (this.movesCount == Math.pow(this.cells.length, 2)) {
                 this.status = Statuses.Draw;
                 return false;
             }
         } else {
-            if (result === 1) {
-                if (this.initialMove === "X") {
+            if (result === this.getX()) {
+                if (this.initialMove === this.getX()) {
                     this.status = Statuses.Win;
                 } else {
                     this.status = Statuses.Fail;
                 }
-            } else if (result === -1)
-                if (this.initialMove === "O") {
+            } else if (result === this.getY())
+                if (this.initialMove === this.getY()) {
                     this.status = Statuses.Win;
                 } else {
                     this.status = Statuses.Fail;
@@ -79,5 +79,4 @@ export default class Game {
 
         return false;
     }
-
 }
