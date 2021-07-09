@@ -3,11 +3,11 @@ td {
 }
 
 td:hover {
-    background: rgb(67, 56, 164);
+    background-color: rgb(67, 56, 164);
 }
 
 .square {
-    background: lightblue;
+    background-color: lightblue;
     width: 20px;
     height: 20px;
 }
@@ -15,4 +15,16 @@ td:hover {
 .board {
     margin-left: auto;
     margin-right: auto;
+}
+
+.timer {
+    background-color: chartreuse solid 1px;
+}
+
+.isWin {
+    background-color: lightgreen;
+}
+
+.isFail {
+    background-color: red;
 }

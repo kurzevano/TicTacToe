@@ -47,6 +47,14 @@ export default class Game {
             cell.setValue(this.currentMove);
             this.movesCount++;
             this.checkForWinner();
+
+            if (this.status === Statuses.Win) {
+                cell.setWin();
+            }
+            if (this.status === Statuses.Fail) {
+                cell.setFail();
+            }
+
             this.changePlayer();
         }
     }

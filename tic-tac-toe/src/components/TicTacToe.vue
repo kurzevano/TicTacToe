@@ -45,11 +45,13 @@
         </nav>
           <div>Ходит: {{gm.currentGame.currentMove}}</div>
           <div>{{gm.currentGame.status}}</div>
+  
 
            <table class='board'>
           <tr v-for="row in gm.currentGame.cells" :key="row">
             <td v-for="cell in row" :key="cell.id" @click="makeMove(cell)">
               <div class='square'
+              v-bind:class="{isWin: cell.isWin, isFail: cell.isFail}"
                     >
                 {{cell.value}}
               </div>
@@ -78,16 +80,14 @@ export default {
     },
       methods:{
         startGame(gp){
-          console.log(`Starting...`+gp);
-    this.gm.startGame(gp);
-    },
-    selectFieldSize(){
+          this.gm.startGame(gp);
+            },
+      
+      selectFieldSize(){
       let value = document.getElementById("sizeSelect").value;
       this.gp.setSelectedSize(value);
-      console.log(this.gm.isStarted + "---" + this.gp.isFieldSizeSelected);
     },
     startOnePlayerGame(){
-      console.log(`StartingOne...`+this.gm);
       this.gp.setPlayerCount(1);
       this.startGame(this.gp);
     },
@@ -96,7 +96,6 @@ export default {
       this.startGame(this.gp);
     },
     makeMove(cell){
-      console.log("cell click "+Object.entries(cell)[0]);
       this.gm.currentGame.makeMove(cell);
     },
   }
