@@ -13,9 +13,11 @@
           </select>
 
           <button class='row mode' 
+          type="button"
             @click="selectFieldSize">
-            Play
+            Играть
           </button>
+
         </div>
         </div>
       </div>
@@ -38,11 +40,9 @@
       <div center-div class='center-div gameDiv' v-if='gm.isStarted'>
         <nav>
           <button disabled>Пауза</button>
-          <button disabled>Выйти из игры</button>
+          <button @click="goToStart">Выйти из игры</button>
         </nav>
           <div>Ходит: {{gm.currentGame.currentMove}}</div>
-          <div>{{gm.currentGame.status}}</div>
-  
 
            <table class='board'>
           <tr v-for="row in gm.currentGame.cells" :key="row">
